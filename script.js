@@ -67,6 +67,7 @@ const handleCheck = (event) => {
         } else{
             return false;
         }
+
     })
     populatePage(typeFilteredArr)
 }
