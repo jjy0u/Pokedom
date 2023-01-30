@@ -3,7 +3,6 @@ const cardContainer = document.querySelector(".card-container")
 const input = document.querySelector("#search-bar")
 const types = document.querySelector(".types")
 
-
 const capitaliseFirstLetter = (str) => {
     return str.charAt(0).toUpperCase() + str.slice(1);
   }
@@ -52,16 +51,29 @@ const createTypesCheckboxes = () => {
 
     for (let index = 0; index < typesArray.length; index++) {
         const typesHTML =
-        `<div class="type">
-        <label for="${typesArray[index]}">${capitaliseFirstLetter(typesArray[index])}</label>
-        <input type="checkbox" id="${typesArray[index]}">
+        `<div class="checkbox">
+            <label for="${typesArray[index]}">${capitaliseFirstLetter(typesArray[index])}</label>
+            <input type="checkbox" id="${typesArray[index]}">
         </div>`  
         types.innerHTML += typesHTML
     }
 }
-
 createTypesCheckboxes()
 
-
+const handleCheck = (event) => {
+    const typeFilteredArr = pokemonArray.filter(pokemon => {
+        if(event.target.id == pokemon.types[0] | pokemon.types[1]) {
+            return true;
+        } else{
+            return false;
+        }
+    })
+    populatePage(typeFilteredArr)
+}
 
 input.addEventListener("input", handleSearch)
+
+const checkboxes = document.querySelectorAll(".checkbox")
+checkboxes.forEach((checkbox) => {
+    checkbox.addEventListener("change",handleCheck)
+})
